@@ -1,0 +1,7 @@
+name = "pukuli-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "PUKULI_KV"
+id = "ddf10ec4d684491ab9e7447c3e293dcf"
