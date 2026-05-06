@@ -16,14 +16,14 @@ export default {
     if (request.method === 'GET' && url.pathname === '/api/get') {
       const key = url.searchParams.get('key');
       if (!validKeys.includes(key)) return new Response('bad key', { status: 400, headers: cors });
-      const value = await env.PUKULI_KV.get(key);
+      const value = await env.PUKULI_KV.get(key, { cacheTtl: 1 });
       return new Response(JSON.stringify({ value: value ? JSON.parse(value) : null }), { headers: { ...cors, 'Content-Type': 'application/json' } });
     }
 
     if (request.method === 'GET' && url.pathname === '/api/all') {
       const out = {};
       for (const key of validKeys) {
-        const v = await env.PUKULI_KV.get(key);
+        const v = await env.PUKULI_KV.get(key, { cacheTtl: 1 });
         out[key] = v ? JSON.parse(v) : null;
       }
       return new Response(JSON.stringify(out), { headers: { ...cors, 'Content-Type': 'application/json' } });
